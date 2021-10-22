@@ -1,0 +1,82 @@
+version: '2.3'
+
+services:
+  seiso-db:
+    image: healthcheck/postgres
+    container_name: seiso-db
+    env_file:
+      - ../.env.postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data/
+    ports:
+      - 5433:5432
+    restart: unless-stopped
+
+  seiso-web:
+    container_name: seiso-web
+    build:
+      context: .
+      dockerfile: ../docker/web.dockerfile
+    depends_on:
+      - seiso-app
+    volumes:
+      - ../static:/app/static
+    ports:
+      - 80:80
+      - 443:443
+
+  seiso-app:
+    build:
+      context: ..
+      dockerfile: ./local/app.dockerfile
+    container_name: seiso-app
+    restart: unless-stopped
+    depends_on:
+      seiso-db:
+        condition: service_healthy
+    volumes:
+      - data:/storage
+      - ..:/app
+    sysctls:
+      net.core.somaxconn: 40000
+
+  seiso-vpn-1:
+    image: jeroenslot/nordvpn-proxy:latest
+    container_name: seiso-vpn-1
+    restart: unless-stopped
+    env_file:
+      - ../.env.vpn
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    dns:
+      - 103.86.96.100
+      - 103.86.99.100
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - vpn-data-1:/app/ovpn/config
+    environment:
+      - LOCAL_NETWORK=192.168.1.0/24
+      - LOAD=100
+      - RANDOM_TOP=100
+
+  seiso-autoheal:
+    restart: always
+    container_name: seiso-autoheal
+    image: willfarrell/autoheal
+    environment:
+      - AUTOHEAL_CONTAINER_LABEL=all
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  seiso-redis:
+    image: redis:6.2.0
+    container_name: seiso-redis
+
+volumes:
+  vpn-data-1:
+  db-data:
+    driver: local
+  data:
+    driver: local

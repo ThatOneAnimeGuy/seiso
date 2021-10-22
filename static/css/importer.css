@@ -1,0 +1,31 @@
+.info {
+    width: 600px;
+    text-align: center;
+    margin: 5px auto auto auto;
+    border: 1px solid #111;
+    background: #1A1D23;
+    padding: 2px 5px 2px 5px;
+    max-height: 80%;
+    overflow-y: scroll;
+}
+
+.info * {
+    font-size: 10pt;
+}
+
+.info .logs {
+    background-color: #3F4C59;
+    font-size: 8pt;
+    padding: 5px;
+}
+
+.importer-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+}
+
+.importer-form #service, .importer-form #session-key, .imorter-form #consent {
+    display: block;
+    padding: 3px;
+}

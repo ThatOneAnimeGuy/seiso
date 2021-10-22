@@ -1,0 +1,41 @@
+{% extends 'components/shell.html' %}
+{% block content %}
+<script src="{{ url_for('static', filename='js/artist.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/artist.css') }}">
+{% with artist = data['artist'] %}
+    <div class="artist-header" style="{{ make_background_image(artist['banner']['path'], artist['banner']['bucket_name']) }}">
+        <div class="avatar" style="{{ make_background_image(artist['icon']['path'],artist['icon']['bucket_name']) }}"></div>
+        <div class="info">
+            <div>
+                <a href="{{ url_for('artists.get', service = artist['service'], artist_id = artist['id']) }}"><span class="title">{{ artist['display_name'] }}</span></a>
+                <br/>
+                <a target="_blank" class="service-link" rel="noreferrer" href="{{ artist['display_data']['href'] }}">View their {{ artist['display_data']['service'] }}</a>
+            </div>
+            <div>
+            {% if artist['is_favorited'] %}
+                <a href="javascript:unfavorite_artist({{ artist['id'] }});" class="user-header-favorite">
+                    <span class="favorited">Unfave ☆</span>
+                </a>
+            {% else %}
+                <a href="javascript:favorite_artist({{ artist['id'] }});" class="user-header-favorite">
+                    <span class="not-favorited">Fave ★</span>
+                </a>
+            {% endif %}
+            </div>
+        </div>
+        {% if data['is_admin'] %}
+            <script type="text/javascript">
+                function on_click_delete_artist(input) {
+                    if (confirm('Are you SURE you want to delete this artist? They will be added to the DNP list and all content will be removed.')) {
+                        input.form.submit();
+                    }
+                }
+            </script>
+            <form method="POST" action="{{ url_for('artists.delete', artist_id = artist['id']) }}">
+                <input style="background-color:red;" type="button" onclick="on_click_delete_artist(this);return false;" value="DELETE ARTIST"/>
+            </form>
+        {% endif %}
+    </div>
+    {% include 'components/post_list.html' %}
+{% endwith %}
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'components/shell.html' %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/leaderboard_v2.css') }}">
+<h1>Import Leaderboard</h1>
+<p>If you imported using your account, you can set your display name in your <a href="{{ url_for('account.get_account') }}">account settings</a>.</p>
+<i>Leaderboard will update automatically every two hours</i>
+<div class="leaderboard-list-container">
+    <div class="leaderboard-list">
+        {% for account in data['accounts'] %}
+            <div class="leaderboard-card">
+                <div class="leaderboard-info">
+                    <div class="leaderboard-rank">{% if loop.index <= 25 %}{{ loop.index }}.{% endif %}</div>
+                    <div class="leaderboard-name">{{ account['display_name'] }} {% if account['is_me'] %}(you){% endif %}</div>
+                    <div class="leaderboard-score">{{ account['score'] }}</div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+.centered {
+    margin: auto;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.artist-card {
+    max-width: 650px;
+}
+
+.artist-info {
+    height: 75px;
+    width: auto;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;    
+}
+
+.artist-card {
+    margin: auto;
+    margin-bottom: 5px;
+}
+
+.artist-icon {
+    height: 50px;
+    width: 50px;
+    background-size: cover;
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 3px;
+}
+
+.artist-name {
+    display: inline;
+    font-weight: bold;
+    text-shadow: 1px 1px #000;
+}
+
+.artist-service {
+    flex: auto;
+    justify-content: flex-end;
+    display: flex;
+    margin-right: 10px;
+}

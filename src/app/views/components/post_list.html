@@ -1,0 +1,19 @@
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/post_list.css') }}">
+<div class="vertical-views">
+    <div class="paginator" id="paginator-top">
+        {% include 'components/paginator.html' %}
+    </div>
+    <div class="content-grid" id="content">
+        {% if data['results']|length == 0 %}
+            <h1 class="subtitle">No posts right now</h1>
+        {% endif %}
+        {% for post in data['results'] %}
+            {% with post = post %}
+                {% include 'components/preview.html' %}
+            {% endwith %}
+        {% endfor %}
+    </div>
+    <div class="paginator" id="paginator-bottom">
+        {% include 'components/paginator.html' %}
+    </div>
+</div>

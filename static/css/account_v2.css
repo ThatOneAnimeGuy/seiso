@@ -1,0 +1,33 @@
+.account_form {
+    display:grid;
+    grid-template-columns: max-content max-content;
+    grid-gap:5px;
+}
+
+form > label {
+    text-align: right;
+    line-height: 22px;
+}
+
+form > label:after {
+    content: ":";
+}
+
+.section {
+    padding: 10px;
+    max-width: 100%;
+    border: 1px solid #555;
+    margin-bottom: 10px;
+}
+
+.section p {
+    margin: 0;
+}
+
+.section h2 {
+    margin-top: 0;
+}
+
+.section .account_detail:not(:last-child) {
+    margin-bottom: 10px;
+}

@@ -1,0 +1,54 @@
+.artist-header {
+    border-radius: 10px;
+    background-size: 100% auto;
+    background-position: center;
+    padding: 10px;
+    display: flex;
+    margin: auto;
+    max-width: 650px;
+}
+
+.artist-header .avatar {
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
+    height: 100px;
+    width: 100px;
+}
+
+.artist-header-upload {
+    background-image: url(/static/upload.svg);
+    display: inline-block;
+    margin-left: 10px;
+    width: 36px;
+    height: 30px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.artist-header .info {
+    margin-left: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: rgba(0,0,0,0.9);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.artist-header .info .title {
+    font-size: 24px;
+}
+
+.artist-header .service-link {
+    margin-top: 10px;
+}
+
+.artist-header .not-favorited {
+    color: #FFD700;
+}
+
+.artist-header .favorited {
+    color: #ff6961;
+}

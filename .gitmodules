@@ -1,0 +1,3 @@
+[submodule "src/vendor/PixivUtil2"]
+	path = src/vendor/PixivUtil2
+	url = https://github.com/Nandaka/PixivUtil2.git

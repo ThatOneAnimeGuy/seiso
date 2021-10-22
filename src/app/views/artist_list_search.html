@@ -1,0 +1,30 @@
+{% extends 'components/shell.html' %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/artist_list_search.css') }}">
+    <div class="page">
+        <form autocomplete="off" class="search-form" novalidate="novalidate" action="{{ url_for('artists.get_list') }}" accept-charset="UTF-8" method="get">
+            <div class="field">
+                <label for="query">Name</label>
+                <input id="search" type="text" name="query" autocomplete="off" value="{{ get_value(request.args, 'query', '') }}">
+                <small class="subtitle" style="margin-left: 5px;">Leave blank to list all</small>
+            </div>
+            <div class="margin-bottom-15"></div>
+            <div class="field">
+                <label for="service">Service</label>
+                <select id="service" name="service">
+                    <option value="">All</option>
+                    <option value="patreon" {{ 'selected' if request.args.get('service') == 'patreon' }}>Patreon</option>
+                    <option value="fanbox" {{ 'selected' if request.args.get('service') == 'fanbox' }}>Pixiv Fanbox</option>
+                    <option value="fantia" {{ 'selected' if request.args.get('service') == 'fantia' }}>Fantia</option>
+                </select>
+            </div>
+            <div class="margin-bottom-15"></div>
+            <input id="submit" type="submit" value="Search"/>
+        </form>
+        {% if data['display'] %}
+            <div style="text-align: center;">
+                <h3 class="subtitle">Displaying {{ data['display'] }}</h3>
+            </div>
+        {% endif %}
+        {% include 'components/artist_list.html' %}
+{% endblock %}

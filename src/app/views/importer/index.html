@@ -1,0 +1,35 @@
+{% extends 'components/shell.html' %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/importer.css') }}">
+<div class="page">
+    <h1>Import from site</h1>
+    {% if not is_logged_in() %}
+        <p>If you want your account to get credit for this import, make sure you're <a href="{{ url_for('account.get_login') + '?' + url_encode({'redir': url_for(request.endpoint)}) }}">logged in</a>!</p>
+    {% endif %}
+    <form class="importer-form" action="/api/import" enctype="application/x-www-form-urlencoded" method="post">
+        <select class="margin-bottom-10" id="service" name="service">
+            <option value="patreon" selected>Patreon</option>
+            <option value="fanbox">Pixiv Fanbox</option>
+            <option value="fantia">Fantia</option>
+        </select>
+        <input class="margin-bottom-10" id="session-key" type="text" name="session_key" placeholder="Session Key" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required/>
+        <input class="margin-bottom-10" type="submit" value="Start Import"/>
+        <div id="consent">
+            <input type="checkbox" checked="checked" id="save-session-key" name="log_session_key" value="1" style="display:inline;margin-right:5px"/>
+            <label for="log-session-key" style="display:inline">I want to allow the development team to use my session for debugging (your session will be encrypted)</label>
+        </div>
+        {% if is_logged_in() %}
+            <div id="auto_import_consent">
+                <input type="checkbox" checked="checked" id="allow-auto-import" name="allow_auto_import" value="1" style="display:inline;margin-right:5px"/>
+                <label for="allow-auto-import" style="display:inline">Save my session so it can be automatically imported daily (your session will be encrypted)</label>
+            </div>
+        {% endif %}
+    </form>
+    <p>
+        <a href="/importer/tutorial">Learn how to get your session key</a><br>
+        <h2>Important information</h2>
+        <p>Your session key is used to collect posts from your feed. After downloading missing posts, the key is immediately discarded and never stored unless you agree for it to be used for debugging by the developers. If you choose to allow your key to be used for debugging, it will be encrypted using a strong RSA key. Even if the server was compromised, your session key would be unreadable and your account would remain secure.</p>
+        <p>If you're having trouble with the importer, contact the team on {% include 'components/telegram_link.html' %}.</p>
+    </p>
+</div>
+{% endblock %}

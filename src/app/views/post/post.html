@@ -1,0 +1,66 @@
+{% extends 'components/shell.html' %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/post.css') }}">
+<div id="post-page">
+    {% with post = data['post'] %}
+        <div class="post-container">
+            <div class="post-info">
+                <div class="nav-links margin-bottom-5">
+                    <div>
+                        <a class="prev" href="{{ url_for('post.get_prev', service = post['service'], artist_id = post['artist_id'], post_id = post['id']) }}">‹ prev</a>
+                    </div>
+                    <div>
+                        <a class="next" href="{{ url_for('post.get_next', service = post['service'], artist_id = post['artist_id'], post_id = post['id']) }}">next ›</a>
+                    </div>
+                </div>
+
+                <div class="margin-bottom-30">
+                    <a href="{{ url_for('artists.get', service = post['service'], artist_id = post['artist_id']) }}">
+                        <div class="artist-avatar" style="background-image: url('{{ cdn(data['artist']['icon']['path'], data['artist']['icon']['bucket_name']) }}');"></div>
+                        <span class="artist-name a">View all posts by artist</span>
+                    </a>
+                </div>
+
+                {% if post['published_at'] %}
+                    <div class="margin-bottom-15 minor-text">{{ post.published_at }} UTC</div>
+                {% endif %}
+
+                <div class="margin-bottom-15">
+                    {% if data['flagged'] %}
+                        <span class="flag-disabled" title="This post has been flagged" id="flag-button">Flagged for reimport ⚑</span>
+                    {% else %}
+                        <span class="flag" onclick="flag_post({{ post['id'] }});">Flag for reimport ⚑</span>
+                    {% endif %}
+                </div>
+
+                <div>
+                    {% if data['favorited'] %}
+                        <a href="javascript:unfavorite_post('{{ post.id }}');" class="favorited">Unfave ☆</a>
+                    {% else %}
+                        <a href="javascript:favorite_post('{{ post.id }}');" class="not-favorited">Fave ★</a>
+                    {% endif %}
+                </div>
+
+                {% if data['is_admin'] %}
+                <div>
+                    <script type="text/javascript">
+                        function on_click_delete_post(input) {
+                            if (confirm('Are you SURE you want to delete this post? It will be added to the DNP list and all post content will be removed.')) {
+                                input.form.submit();
+                            }
+                        }
+                    </script>
+                    <form method="POST" action="{{ url_for('post.delete', post_id = post['id']) }}">
+                        <input style="background-color:red;" type="button" onclick="on_click_delete_post(this);return false;" value="DELETE POST"/>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+            <div class="post">
+                {% include 'components/post_view.html' %}
+            </div>
+        </div>
+    {% endwith %}
+</div>
+<script src="{{ url_for('static', filename='js/post.js') }}"></script>
+{% endblock %}

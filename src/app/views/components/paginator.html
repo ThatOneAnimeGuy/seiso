@@ -1,0 +1,31 @@
+<div class="paginator">
+    <menu>
+        {% set current_page = request.args.get('page')|int if request.args.get('page') else 1 %}
+
+        {% if current_page > 2 %}
+            <li><a href="{{ url_for(request.endpoint, page = current_page - 2, **data['base']) }}" title="Back 2">«</a></li>
+        {% else %}
+            <li class="subtitle">«</li>
+        {% endif %}
+
+        {% if current_page > 1 %}
+            <li><a href="{{ url_for(request.endpoint, page = current_page - 1, **data['base']) }}" title="Back 1">‹</a></li>
+        {% else %}
+            <li class="subtitle">‹</li>
+        {% endif %}
+
+        <li>Page {{ current_page }}{{ '/' ~ data['max_pages'] if data['max_pages'] }}</li>
+
+        {% if current_page + 1 <= data['max_pages'] %}
+            <li><a href="{{ url_for(request.endpoint, page = current_page + 1, **data['base']) }}" title="Forward 1">›</a></li>
+        {% else %}
+            <li class="subtitle">›</li>
+        {% endif %}
+
+        {% if current_page + 2 <= data['max_pages'] %}
+            <li><a href="{{ url_for(request.endpoint, page = current_page + 2, **data['base']) }}" title="Forward 2">»</a></li>
+        {% else %}
+            <li class="subtitle">»</li>
+        {% endif %}
+    </menu>
+</div>

@@ -1,0 +1,16 @@
+{% extends 'components/shell.html' %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/register.css') }}">
+<div class="login-container">
+    <h3>Register</h3>
+    <form id="register_form" class="register" method="POST">
+        <label for="username">Username</label><input class="left-align-text" type="text" name="username" value="{{ request.form['username'] }}"/>
+        <label for="password">Password</label><input class="left-align-text" type="password" name="password">
+        <label for="password">Confirm Password</label><input class="left-align-text" type="password" name="confirm_password">
+        <input type="submit" value="Register"/>
+    </form>
+    <div class="register-cta">
+        Already have an account? <a href="{{ url_for('account.get_login') + get_value(data, 'query_string', '') }}">Log in!</a>
+    </div>
+</div>
+{% endblock %}

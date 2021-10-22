@@ -1,0 +1,11 @@
+{% extends 'components/shell.html' %}
+{% block content %}
+<script type="text/javascript" src="/static/js/importer_status_v5.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/importer.css') }}">
+<div class="info">
+  <p>
+    <strong>Importer logs</strong><br>
+    <div class="logs" id="logs"></div>
+  </p>
+</div>
+{% endblock %}

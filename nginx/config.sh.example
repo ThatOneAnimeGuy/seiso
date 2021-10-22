@@ -1,0 +1,5 @@
+export SEISO_STORAGE_BUCKET_URL_1="bucket1.com"
+export SEISO_CDN_SERVER_NAME_1="cdn-name.seiso.party.local"
+export SEISO_APP_SERVER_NAME="seiso.party.local"
+export SEISO_SSL_CERTIFICATE_PATH=""
+export SEISO_SSL_CERTIFICATE_KEY_PATH=""

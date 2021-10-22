@@ -1,0 +1,24 @@
+{% extends 'components/shell.html' %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/favorites.css') }}">
+<div class="page">
+    <h3>Favorites</h3>
+    <div class="dropdowns">
+        <label>Sort by</label>
+        <select autocomplete="off" onchange="on_change_filters('sort', this)">
+            <option value="id" {% if data['sort_field'] == "id" %}selected="selected"{% endif %}>Faved date</option>
+            <option value="published_at" {% if data['sort_field'] == "published_at" %}selected="selected"{% endif %}>Published</option>
+        </select>
+        <label>Order</label>
+        <select autocomplete="off" onchange="on_change_filters('sort_direction', this)">
+            <option value="desc" {% if data['sort_direction'] == 'desc' %}selected="selected"{% endif %}>Descending</option>
+            <option value="asc" {% if data['sort_direction'] == 'asc' %}selected="selected"{% endif %}>Ascending</option>
+        </select>
+    </div>
+    {% if data['results']|length %}
+        {% include 'components/post_list.html' %}
+    {% else %}
+        <h1>No favorites yet</h1>
+    {% endif %}
+    <script src="{{ url_for('static', filename='/js/favorites.js') }}"></script>
+{% endblock %}

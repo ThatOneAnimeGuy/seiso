@@ -1,0 +1,169 @@
+version: '2.3'
+
+services:
+  seiso-db:
+    image: healthcheck/postgres
+    container_name: seiso-db
+    env_file:
+      - .env.postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data/
+    restart: unless-stopped
+
+  seiso-web:
+    container_name: seiso-web
+    build:
+      context: .
+      dockerfile: ./docker/web.dockerfile
+    depends_on:
+      - seiso-app
+    volumes:
+      - ./static:/app/static
+      - ./nginx/ssl:/etc/letsencrypt
+    ports:
+      - 80:80
+      - 443:443
+
+  seiso-app:
+    build:
+      context: .
+      dockerfile: ./docker/app.dockerfile
+    container_name: seiso-app
+    restart: unless-stopped
+    depends_on:
+      seiso-db:
+        condition: service_healthy
+    volumes:
+      - data:/storage
+      - /var/log/seiso:/app/logs
+    sysctls:
+      net.core.somaxconn: 40000
+
+  seiso-vpn-1:
+    image: jeroenslot/nordvpn-proxy:latest
+    container_name: seiso-vpn-1
+    restart: unless-stopped
+    env_file:
+      - .env.vpn
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    dns:
+      - 103.86.96.100
+      - 103.86.99.100
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - vpn-data-1:/app/ovpn/config
+    environment:
+      - LOCAL_NETWORK=192.168.1.0/24
+      - LOAD=100
+      - RANDOM_TOP=100
+
+  seiso-vpn-2:
+    image: jeroenslot/nordvpn-proxy:latest
+    container_name: seiso-vpn-2
+    restart: unless-stopped
+    env_file:
+      - .env.vpn
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    dns:
+      - 103.86.96.100
+      - 103.86.99.100
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - vpn-data-2:/app/ovpn/config
+    environment:
+      - LOCAL_NETWORK=192.168.1.0/24
+      - LOAD=100
+      - RANDOM_TOP=100
+
+  seiso-vpn-3:
+    image: jeroenslot/nordvpn-proxy:latest
+    container_name: seiso-vpn-3
+    restart: unless-stopped
+    env_file:
+      - .env.vpn
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    dns:
+      - 103.86.96.100
+      - 103.86.99.100
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - vpn-data-3:/app/ovpn/config
+    environment:
+      - LOCAL_NETWORK=192.168.1.0/24
+      - LOAD=100
+      - RANDOM_TOP=100
+
+  seiso-vpn-4:
+    image: jeroenslot/nordvpn-proxy:latest
+    container_name: seiso-vpn-4
+    restart: unless-stopped
+    env_file:
+      - .env.vpn
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    dns:
+      - 103.86.96.100
+      - 103.86.99.100
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - vpn-data-4:/app/ovpn/config
+    environment:
+      - LOCAL_NETWORK=192.168.1.0/24
+      - LOAD=100
+      - RANDOM_TOP=100
+
+  seiso-vpn-5:
+    image: jeroenslot/nordvpn-proxy:latest
+    container_name: seiso-vpn-5
+    restart: unless-stopped
+    env_file:
+      - .env.vpn
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    dns:
+      - 103.86.96.100
+      - 103.86.99.100
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - vpn-data-5:/app/ovpn/config
+    environment:
+      - LOCAL_NETWORK=192.168.1.0/24
+      - LOAD=100
+      - RANDOM_TOP=100
+
+  seiso-autoheal:
+    restart: always
+    container_name: seiso-autoheal
+    image: willfarrell/autoheal
+    environment:
+      - AUTOHEAL_CONTAINER_LABEL=all
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  seiso-redis:
+    image: redis:6.2.0
+    container_name: seiso-redis
+
+volumes:
+  vpn-data-1:
+  vpn-data-2:
+  vpn-data-3:
+  vpn-data-4:
+  vpn-data-5:
+  db-data:
+    driver: local
+  data:
+    driver: local

@@ -1,0 +1,17 @@
+form.register {
+    display:grid;
+    grid-template-columns: max-content max-content;
+    grid-gap:5px;
+}
+
+form > label {
+    text-align: right;
+}
+
+form > label:after {
+    content: ":";
+}
+
+.register-cta {
+    margin-top: 10px;
+}

@@ -1,0 +1,42 @@
+SECRET_KEY = 'some secret value'
+
+DATABASE_HOST = 'seiso-db'
+DATABASE_NAME = 'seiso'
+DATABASE_USER = 'noelle'
+DATABASE_PASSWORD = 'password'
+DATABASE_PORT = 5432
+
+PROXIES = [
+    'http://seiso-vpn-1:8118'
+]
+
+MAX_REQUEST_IMAGE_SIZE = 1048576
+
+ENABLE_PASSWORD_VALIDATOR = True
+ENABLE_LOGIN_RATE_LIMITING = True
+
+REDIS_HOST = 'seiso-redis'
+REDIS_PORT = 6379
+
+S3_REGION_NAME = 'your-s3-region'
+S3_USE_SSL = True,
+S3_ENDPOINT_URL = 'https://yours3endpoint.com'
+S3_AWS_ACCESS_KEY_ID = ''
+S3_AWS_SECRET_ACCESS_KEY = ''
+S3_BUCKET_NAME = 'bucket2'
+S3_BUCKETS = {
+    'bucket1': 'cdn',
+    'bucket2': 'cdn-2'
+}
+
+LOG_LOCATION = '/app/seiso.log'
+SESSION_STORAGE_LOCATION = '/tmp/session_keys'
+
+CDN_BASE_URL_SCHEME = 'http'
+CDN_BASE_URL = 'seiso.party.local'
+RSA_PUB_KEY = """
+
+"""
+SESSION_AES_KEY = ''
+STARTUP_TASKS_LOCK_FILE = '/app/.restartlock'
+TEMP_STORAGE_DIR = '/tmp/images'

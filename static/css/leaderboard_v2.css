@@ -1,0 +1,47 @@
+.leaderboard-info {
+    height: 75px;
+    width: auto;
+    display: flex;
+    align-items: center;    
+}
+
+.leaderboard-card {
+    margin: auto;
+    margin-bottom: 5px;
+    max-width: 350px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.leaderboard-rank {
+    margin-left: 15px;
+}
+
+.leaderboard-name {
+    display: inline;
+    font-weight: bold;
+    text-shadow: 1px 1px #000;
+    margin-left: 8px;
+}
+
+.leaderboard-score {
+    flex: auto;
+    justify-content: flex-end;
+    display: flex;
+    margin-right: 15px;
+}
+
+.leaderboard-card:nth-child(1) {
+    background-color: rgba(175, 149, 0, 0.9);
+}
+
+.leaderboard-card:nth-child(2) {
+    background-color: rgba(180, 180, 180, 0.9);
+}
+
+.leaderboard-card:nth-child(3) {
+    background-color: rgba(173, 138, 86, 0.9);
+}
+
+.leaderboard-list-container {
+    margin-top: 20px;
+}

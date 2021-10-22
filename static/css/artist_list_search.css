@@ -1,0 +1,34 @@
+.search-form {
+    display: table;
+    padding: 15px;
+    background-color: #1A1D23;
+    margin: 0px auto 8px auto;
+}
+
+.search-form .field {
+    display: table-row;
+}
+
+.search-form small {
+    line-height: normal;
+}
+
+.search-form label, .search-form input {
+    display: table-cell;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.search-form #search, .search-form #service {
+    margin-left: 5px;
+    padding: 3px;
+}
+
+.search-form label {
+    text-align: right;
+    font-weight: 700;
+}
+
+.search-form small {
+    display: block;
+}

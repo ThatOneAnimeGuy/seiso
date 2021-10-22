@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>var page_data = {{ render_page_data()|safe }}</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ get_value(data, 'name') ~ " | Seiso" if get_value(data, 'name') else "Seiso" }}</title>
+    <link rel="shortcut icon" href="/static/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index_v2.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ads.css') }}">
+    {% block scripts %}
+      <script src="{{ url_for('static', filename='js/global_v2.js') }}" defer></script>
+    {% endblock %}
+  </head>
+  <body>
+    {% include 'components/header.html' %}
+    {% include 'components/flash_messages.html' %}
+    <div class="sep"></div>
+    <div class="content">
+      {% block content %}
+      {% endblock %}
+    </div>
+    {% include 'components/footer.html' %}
+  </body>
+</html>

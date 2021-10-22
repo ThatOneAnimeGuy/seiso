@@ -1,0 +1,37 @@
+{% extends 'components/shell.html' %}
+{% block content %}
+<div class="page">
+    <h1>How to find your session key</h1>
+    <h2>Patreon and Fanbox</h2>
+    <p>Seiso uses your session key to collect content from creators you are following.</p>
+    <p>Your session key is stored in a cookie:</p>
+    <ul>
+        <li>For <em>Patreon,</em> your session key cookie is <code>session_id</code>.</li>
+        <li>For <em>Fanbox,</em> your session key cookie is <code>FANBOXSESSID</code>.</li>
+        <li>For <em>Fantia,</em> your session key cookie is <code>_session_id</code>.</li>
+    </ul>
+    <p>First, head to the site you want to import from (Patreon or Fanbox) and make sure you're logged in. Follow the steps below for your browser to find your session key.</p>
+    <h3 id="chrome">Chrome</h3>
+    <ul>
+        <li>Click the padlock button in the address bar.</li>
+        <img src="/static/patreoncookies.png" alt="Padlock Button"></li>
+        <li>Go to Cookies &gt; [site] &gt; Cookies</li>
+        <li>Click the cookie for your service and copy the key next to &quot;Content&quot;</li>
+    </ul>
+    <h3 id="safari">Safari</h3>
+    <ul>
+        <li>Ensure &quot;Show Develop Menu&quot; is enabled in Preferences (<code>⌘,</code>)</li>
+        <li>Open Web Inspector (<code>⌘⌥I</code>)</li>
+        <li>Go to Storage &gt; Cookies</li>
+        <li>Right-click the cookie for your service and click &quot;Copy&quot;</li>
+    </ul>
+    <h3 id="firefox">Firefox</h3>
+    <ul>
+        <li>Open DevTools by pressing F12</li>
+        <li>Go to the Storage tab</li>
+        <li>Go to Cookies &gt; [site]</li>
+        <li>Double click the &quot;Value&quot; for the session key cookie and copy it either by right clicking and pressing &quot;Copy&quot; or by using Ctrl/Cmd-C</li>
+    </ul>
+    <p>For other browsers, please consult browser documentation on how to access stored cookies.</p>
+</div>
+{% endblock %}

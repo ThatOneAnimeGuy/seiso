@@ -1,0 +1,91 @@
+.nav-links {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.post-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.post-container .post {
+    flex: 1;
+}
+
+.post-container .post-info {
+    display: inline-block;
+    width: 175px;
+    padding: 10px;
+    margin: 15px 15px 15px 0;
+    border-radius: 0.25rem;
+    background: #2C333A;
+    text-align: center;
+    height: min-content;
+}
+
+.post-container .post-info .artist-avatar {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    border-radius: 0.25rem;
+    background-position: center;
+    background-size: cover;
+    margin-bottom: 7px;
+}
+
+.post-container .post-info .artist-name {
+    font-family: Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+.flag {
+    color: #ff6961;
+    cursor: pointer;
+}
+
+.flag-disabled {
+    color: #737373;
+}
+
+.post-info .not-favorited {
+    color: #FFD700;
+}
+
+.post-info .favorited {
+    color: #ff6961;
+}
+
+.post-info > .info {
+    margin-bottom: 10px;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    color: grey;
+    background-color: grey;
+}
+
+.post .image-container {
+    box-shadow: 5px 5px 9px 0px rgba(0,0,0,0.6);
+    margin: 0 auto 15px auto;
+}
+
+@media screen and (min-width: 601px) {
+    .post .image-container {
+        width: max-content;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .post-container {
+        flex-direction: column;
+    }
+
+    .post-container .post-info {
+        margin: auto;
+    }
+}

@@ -1,0 +1,5 @@
+export SEISO_CDN_SERVER_NAME_1="cdn.localhost"
+export SEISO_CDN_SERVER_NAME_2="cdn-2.localhost"
+export SEISO_STORAGE_BUCKET_URL_1="bucketname.host.com"
+export SEISO_STORAGE_BUCKET_URL_2="bucketname-2.host.com"
+export SEISO_APP_SERVER_NAME="seiso.party.local"

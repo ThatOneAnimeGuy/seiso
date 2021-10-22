@@ -1,0 +1,15 @@
+<a href="{{ url_for('post.get', service = post['service'], artist_id = post['artist_id'], post_id = post['id']) }}" class="preview-link">
+    <div class="preview-container">
+        <div class="preview-title">
+            <p title="{{ post['title'] }}">{{ post['title'] }}</p>
+        </div>
+        {% if post['thumbnail_path'] %}
+            <div class="preview-thumbnail" style="{{ make_background_image(post['thumbnail_path'], post['bucket_name']) }}"></div>
+        {% else %}
+            <div class="preview-thumbnail no-preview">(no preview)</div>
+        {% endif %}
+        <div class="preview-info">
+            <p>{{ pluralify(post['file_count'], "file") }}</p>
+        </div>
+    </div>
+</a>

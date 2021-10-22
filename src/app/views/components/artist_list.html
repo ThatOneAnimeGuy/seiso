@@ -1,0 +1,30 @@
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/artist_list_v2.css') }}">
+<div class="artist-list-container">
+    {% if data['results']|length %}
+        {% include 'components/paginator.html' %}
+    {% endif %}
+    <div class="artist-list">
+        {% if data['results']|length > 0 %}
+            {% for artist in data['results'] %}
+                <div class="artist-card" style="{{ make_background_image(artist['banner']['path'], artist['banner']['bucket_name']) }}">
+                    <a href="{{ url_for('artists.get', service = artist['service'], artist_id = artist['id']) }}">
+                        <div class="artist-info">
+                            <div class="artist-icon" style="{{ make_background_image(artist['icon']['path'], artist['icon']['bucket_name']) }}"></div>
+                            <div class="artist-name">{{ artist['display_name'] }}</div>
+                            <div class="artist-service">
+                                {{ service_to_display_name(artist['service']) }}
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="centered">
+                <h1 class="subtitle">(no results)</h1>
+            </div>
+        {% endif %}
+    </div>
+    {% if data['results']|length %}
+        {% include 'components/paginator.html' %}
+    {% endif %}
+</div>

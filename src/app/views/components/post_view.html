@@ -1,0 +1,48 @@
+<h2 class="post-title">{{ post.title }}</h2>
+{% if post['content'] or not post['extra_contents'] %}
+    <hr/>
+{% endif %}
+
+{% if get_value(post, 'is_manual_upload') %}
+    <p class="warning">This post was manually uploaded and may contain malicious files or links! Be careful what you trust! If you're unsure about something, please ask in the {% include 'components/telegram_link.html' %}.</p>
+{% endif %}
+
+{% for file in post['files'] %}
+    {% if not has_preview(file) and not file['is_inline'] %}
+        <a href="{{ cdn(file['path'], file['bucket_name']) }}" target="_blank">Download {{ file['name'] }}</a><br/>
+    {% endif %}
+{% endfor %}
+
+<p>
+    {{ post['content']|safe }}
+</p>
+
+{% if post['extra_contents']|length > 0 %}
+    {% for content in post['extra_contents'] %}
+        <hr/>
+        <h3>{{ content['title'] }}</h3>
+        <p>{{ content['content'] }}
+    {% endfor %}
+{% endif %}
+
+<div class="file-container">
+    {% for file in post['files'] %}
+        {% if has_preview(file) and not file['is_inline'] %}
+            <a href="{{ cdn(file['path'], file['bucket_name']) }}" target="_blank">
+                <div class="image-container">
+                    <img src="{{ cdn(file['preview_path'], file['bucket_name']) }}"/>
+                </div>
+            </a>
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% for embed in post['embeds'] %}
+    <a href="{{ embed['url'] }}" target="_blank">
+        <div class="embed-view">
+            {{ '<h3>'|safe ~ embed['subject'] ~ '</h3>'|safe if embed['subject'] else '<h3 class="subtitle">(No title)</h3>'|safe }}
+            {{ '<p>'|safe ~ embed['description'] ~ '</p>'|safe if embed['description'] }}
+        </div>
+    </a>
+    <br/>
+{% endfor %}
